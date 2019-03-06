@@ -1,0 +1,56 @@
+Description: >
+  This template deploys RDS in VPC
+
+Parameters:
+  EnvironmentName:
+    Description: An environment name that will be prefixed to resource names
+    Type: String
+
+  InstanceType:
+    Description: Which instance type of RDS?
+    Type: String
+    Default: db.t2.small
+
+  VPC:
+    Description: Choose which VPC for RDS
+    Type: AWS::EC2::VPC::Id
+
+  Subnets:
+    Description: subnets
+    Type: List<AWS::EC2::Subnet::Id>
+
+  DBSecurityGroup:
+    Description: Security Group to use for the RDS
+    Type: AWS::EC2::SecurityGroup::Id
+
+  DBUsername:
+    Description: DB Username
+    Type: String
+
+  DBPassword:
+    Description: DB Password
+    Type: String
+
+Resources:
+  myDBSubnetGroup:
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties:
+      DBSubnetGroupDescription: "description"
+      SubnetIds: !Ref Subnets
+  myDB:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBName: notejamdb
+      AllocatedStorage: '25'
+      DBInstanceClass: db.t2.small
+      Engine: MySQL
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      DBSubnetGroupName: !Ref myDBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref DBSecurityGroup
+
+Outputs:
+  DbEndpoint:
+    Description: RDS endpoint url
+    Value: !GetAtt myDB.Endpoint.Address
