@@ -1,9 +1,15 @@
-FROM ubuntu:latest
-RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev build-essential
+FROM alpine
+
+# basic flask environment
+RUN apk add --no-cache bash uwsgi uwsgi-python py2-pip \
+	&& pip2 install --upgrade pip \
+	&& pip2 install flask
+
 COPY . /app
 WORKDIR /app
+
 RUN pip install -r requirements.txt
+
 EXPOSE 5000
 ENTRYPOINT ["python"]
 CMD ["runserver.py"]
