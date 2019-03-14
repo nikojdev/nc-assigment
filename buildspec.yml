@@ -10,12 +10,11 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --no-include-email --region ap-southeast-1)
-      - IMAGE_REPO_NAME = "388925426397.dkr.ecr.ap-southeast-1.amazonaws.com/notejam-flask:latest"
   build:
     commands:
-      - docker build --tag "$IMAGE_URI" .      
+      - docker build --tag "388925426397.dkr.ecr.ap-southeast-1.amazonaws.com/notejam-flask:latest" .      
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push "$IMAGE_URI"
+      - docker push "388925426397.dkr.ecr.ap-southeast-1.amazonaws.com/notejam-flask:latest"
