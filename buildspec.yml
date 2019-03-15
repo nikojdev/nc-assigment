@@ -12,13 +12,12 @@ phases:
       - $(aws ecr get-login --no-include-email --region ap-southeast-1)
   build:
     commands:
-      - docker build --tag "388925426397.dkr.ecr.ap-southeast-1.amazonaws.com/notejam-flask:latest" .      
+      - docker build --tag "388925426397.dkr.ecr.ap-southeast-1.amazonaws.com/notejam-flask:latest" .
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push "388925426397.dkr.ecr.ap-southeast-1.amazonaws.com/notejam-flask:latest"
-	  - printf '[{"name":"website-service","imageUri":"%s"}]' 388925426397.dkr.ecr.ap-southeast-1.amazonaws.com/notejam-flask:latest > imagedefinitions.json
+      - printf '[{"name":"website-service","imageUri":"%s"}]' 388925426397.dkr.ecr.ap-southeast-1.amazonaws.com/notejam-flask:latest > imagedefinitions.json
 artifacts:
    files: imagedefinitions.json
-
