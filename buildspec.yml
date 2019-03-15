@@ -18,5 +18,3 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push "388925426397.dkr.ecr.ap-southeast-1.amazonaws.com/notejam-flask:latest"
-artifacts:
-  files: BuildArtifact
