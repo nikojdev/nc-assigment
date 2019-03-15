@@ -66,8 +66,8 @@ Resources:
       TemplateURL: https://s3-ap-southeast-1.amazonaws.com/assigment-public/notejam/infrastructure/ecs-cluster.yaml
       Parameters:
         EnvironmentName: !Ref AWS::StackName
-        InstanceType: t2.medium
-        ClusterSize: 4
+        InstanceType: t2.small
+        ClusterSize: 2
         VPC: !GetAtt VPC.Outputs.VPC
         SecurityGroup: !GetAtt SecurityGroups.Outputs.ECSHostSecurityGroup
         Subnets: !GetAtt VPC.Outputs.PrivateSubnets
@@ -78,7 +78,7 @@ Resources:
       TemplateURL: https://s3-ap-southeast-1.amazonaws.com/assigment-public/notejam/data/rds.yaml
       Parameters:
         EnvironmentName: !Ref AWS::StackName
-        InstanceType: db.t2.small
+        InstanceType: db.t2.micro
         VPC: !GetAtt VPC.Outputs.VPC
         Subnets: !GetAtt VPC.Outputs.PrivateSubnets
         DBSecurityGroup: !GetAtt SecurityGroups.Outputs.DBSecurityGroup
